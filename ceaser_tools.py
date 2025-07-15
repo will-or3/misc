@@ -1,55 +1,12 @@
+# shift alphs
+def alphabets(shift):
+    alphabet = {}
+    for i in range(ord('a'), ord('z') + 1):
+        shifted_char = chr((i - ord('a') + shift) % 26 + ord('a'))
+        alphabet[chr(i)] = shifted_char
+    return alphabet
 
-alphabet_1 = {chr(i): chr(i) for i in range(ord('a'), ord('z') + 1)}
-alphabet_2 = {chr(i): chr(i + 1) for i in range(ord('a'), ord('z'))}
-alphabet_2['z'] = 'a'  
-alphabet_3 = {chr(i): chr(i +2) for i in range(ord('a'), ord('z'))}
-alphabet_3['z'] = 'a'  
-alphabet_4 = {chr(i): chr(i +3) for i in range(ord('a'), ord('z'))}
-alphabet_4['z'] = 'a'  
-alphabet_5 = {chr(i): chr(i +4) for i in range(ord('a'), ord('z'))}
-alphabet_5['z'] = 'a'  
-alphabet_6 = {chr(i): chr(i +5) for i in range(ord('a'), ord('z'))}
-alphabet_6['z'] = 'a'  
-alphabet_7 = {chr(i): chr(i +6) for i in range(ord('a'), ord('z'))}
-alphabet_7['z'] = 'a'  
-alphabet_8 = {chr(i): chr(i +7) for i in range(ord('a'), ord('z'))}
-alphabet_8['z'] = 'a'  
-alphabet_9 = {chr(i): chr(i +8) for i in range(ord('a'), ord('z'))}
-alphabet_9['z'] = 'a'  
-alphabet_10 = {chr(i): chr(i +9) for i in range(ord('a'), ord('z'))}
-alphabet_10['z'] = 'a'  
-alphabet_11 = {chr(i): chr(i +10) for i in range(ord('a'), ord('z'))}
-alphabet_11['z'] = 'a'  
-alphabet_12 = {chr(i): chr(i +11) for i in range(ord('a'), ord('z'))}
-alphabet_12['z'] = 'a'  
-alphabet_13 = {chr(i): chr(i +12) for i in range(ord('a'), ord('z'))}
-alphabet_13['z'] = 'a'  
-alphabet_14 = {chr(i): chr(i +13) for i in range(ord('a'), ord('z'))}
-alphabet_14['z'] = 'a'  
-alphabet_15 = {chr(i): chr(i +14) for i in range(ord('a'), ord('z'))}
-alphabet_15['z'] = 'a'  
-alphabet_16 = {chr(i): chr(i +15) for i in range(ord('a'), ord('z'))}
-alphabet_16['z'] = 'a'  
-alphabet_17 = {chr(i): chr(i +16) for i in range(ord('a'), ord('z'))}
-alphabet_17['z'] = 'a'  
-alphabet_18 = {chr(i): chr(i +17) for i in range(ord('a'), ord('z'))}
-alphabet_18['z'] = 'a'  
-alphabet_19 = {chr(i): chr(i +18) for i in range(ord('a'), ord('z'))}
-alphabet_19['z'] = 'a'  
-alphabet_20 = {chr(i): chr(i +19) for i in range(ord('a'), ord('z'))}
-alphabet_20['z'] = 'a'  
-alphabet_21 = {chr(i): chr(i +20) for i in range(ord('a'), ord('z'))}
-alphabet_21['z'] = 'a'  
-alphabet_22 = {chr(i): chr(i +21) for i in range(ord('a'), ord('z'))}
-alphabet_22['z'] = 'a'  
-alphabet_23 = {chr(i): chr(i +22) for i in range(ord('a'), ord('z'))}
-alphabet_23['z'] = 'a'  
-alphabet_24 = {chr(i): chr(i +23) for i in range(ord('a'), ord('z'))}
-alphabet_24['z'] = 'a'  
-alphabet_25 = {chr(i): chr(i +24) for i in range(ord('a'), ord('z'))}
-alphabet_25['z'] = 'a'  # Wrap around for 'z' to 'a
-alphabet_25 = {chr(i): chr(i +25) for i in range(ord('a'), ord('z'))}
-alphabet_25['z'] = 'a'  
-alphabet_26 = {chr(i): chr(i +26) for i in range(ord('a'), ord('z'))}
-alphabet_26['z'] = 'a'  
-print(alphabet(1,26))
+# shifts it 
+alphabets = {f'alphabet_{i}': alphabets(i) for i in range(27)}
+
+print(alphabets['alphabet_26'])
