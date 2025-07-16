@@ -6,11 +6,20 @@ def alphabets(shift):
         alphabet[chr(i)] = shifted_char
     return alphabet
 
-# shifts it 
-initial = input(str("enter decyphered text >:"))
-i = int(input("shift by >:"))
-enc = {f'alphabet_{i}': alphabets(i) for i in range(27)}
-def encrypt_decrypt(text, shift):
-    shifted = 
 
-print()
+enc = {f'alphabet_{i}': alphabets(i) for i in range(27)} #27 cause the first one counts as one
+
+def encrypt(text, shift):
+    shifted = alphabets(shift)
+    result = ''
+    for char in text:
+        if char in shifted:
+            result += (shifted[char]) #encrypt
+        else:
+            result += (char)
+    return result
+
+initial = input(str("enter deciphered text >:"))
+i = int(input("shift by >:"))
+result = encrypt(initial, i)
+print("your secret text is >:", result)
