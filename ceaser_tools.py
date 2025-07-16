@@ -5,10 +5,7 @@ def alphabets(shift):
         shifted_char = chr((i - ord('a') + shift) % 26 + ord('a'))
         alphabet[chr(i)] = shifted_char
     return alphabet
-
-
 enc = {f'alphabet_{i}': alphabets(i) for i in range(27)} #27 cause the first one counts as one
-
 def encrypt(text, shift):
     shifted = alphabets(shift)
     result = ''
@@ -18,8 +15,22 @@ def encrypt(text, shift):
         else:
             result += (char)
     return result
+def input_enc():
+    initial = input(str("enter unencoded text >:"))
+    i = int(input("shift by >:"))
+    result = encrypt(initial, i)
+    print("your secret text is >:", result)
+def input_dec():
+    initial = input(str("enter encrypted text >:"))
+    for i in range (1, 27):
+         result = encrypt(initial, i)  
+         print(f"shift {i}: {result}\n")
+def main():
+    want = input("encrypt(1) or decrypt(2) >:")
+    if want == '1':
+        input_enc()
+    if want == '2':
+        input_dec()
 
-initial = input(str("enter deciphered text >:"))
-i = int(input("shift by >:"))
-result = encrypt(initial, i)
-print("your secret text is >:", result)
+if __name__ == "__main__":
+    main()
