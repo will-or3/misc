@@ -1,0 +1,9 @@
+/malware_project/
+│
+├── docs/                      # Documentation: architecture, roadmap, testing guides
+├── droppers/                  # Trojan dropper executables for delivery & initial execution
+├── injector/                  # DLL injection & process hollowing tools
+├── payload/                   # Core payload modules (keylogger, persistence, evasion, exfiltration)
+├── tools/                     # Build scripts, cleanup utilities, helpers
+├── Makefile                   # Master build automation file
+├── README.md                  # Project overview and usage
