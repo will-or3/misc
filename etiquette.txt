@@ -1,0 +1,25 @@
+1. Knowledge & skill etiquette
+	- Gatekeeping excessively --  hoarding information instead of sharing or mentoring
+	- Bragging without substance -- claiming exploits or code you didn't discover or understand 
+	- Copy/Pasting blindly -- classic script kiddie behavior
+	- Posing expertise -- "I hacked X" when you ran a prebuilt tool
+
+2. Communication etiquette
+	- Jargon flexing (for no reason) -- unnecessary complicating explanations to intimidate beginners
+	- Dismissing Newbies outright -- we all start somewhere; mocking questions instead of answering them
+	- Threatening people online -- "I'll put a virus on your computer", "I'll hack your Facebook" or "does this look familiar 192.xxx.xxx"
+	- Spamming -- posting exploits or questions repeatedly for attention
+	- Ad Hominem -- turning technical discussion into personal attacks
+
+3. Tools etiquette
+	- relying solely on GUI or automated tools -- "I used Metasploit/Burp, I'm elite"
+	- Messing with Shared resources -- abusing Tor bandwidth, CTF servers, or public labs
+	- Refusing to learn fundamentals -- insisting tools are enough and skipping underlying concepts
+
+4. Misc
+	- Ignoring responsible disclosure -- leaking before vendors have (reasonable) time to patch
+	- Claim-hogging -- taking credit for collaborations or community work
+	- Not giving credit -- failing to cite repos, writeups, or contributors you used
+	- Misrepresenting risk -- blowing up minor issues for clout
+
+	- calling every piece of malware a virus ಠ_ಠ
