@@ -1,10 +1,13 @@
+# use on quiet network or raise threshold
+# must run with sudo
+
 import subprocess
 import time
 import socket
 from collections import Counter
 
 INTERFACE = "wlo1"
-THRESHOLD = 5000
+THRESHOLD = 100
 INTERVAL = 2 # seconds 
 
 def get_local_ip():
@@ -57,9 +60,9 @@ try:
                 counts = Counter(remote_ips)
                 most_common_ip, count = counts.most_common(1)[0]
 
-                print("\n============================")
-                print("Identified :", most_common_ip)
-                print("\nPacket count in burst :", count)
+                print("\n====================")
+                print("Identified :\033[1m\033[92m", most_common_ip, "\033[0m")
+                print("\nPacket count in burst :\033[1m\033[91m", count, "\033[0m")
             else:
                 print("threshold reached but no ip's found")
             buffer = []
