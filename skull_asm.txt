@@ -1,0 +1,26 @@
+		rax_rbx
+            mov_eax_0xdeadbeef
+         push_rbp_mov_rsp_rbp_pop
+        lea_rax_[rbp-4]_mov_rdx_rsi
+       add_esp_8_sub_eax_1_int_0x80
+      xor_rax_rax_mov_ebx_1_ret_near
+      jmp_short_label_0x90_0x90_0x90
+      mov_rax"   "rbp"   "mov_rbx
+      "push"       nop       "pop "
+       xor_eax     nop      inc_rax
+       lea_esi     ret      mov_edi
+        "mov_edi_sub_add_rsi_mov"
+         "jnz_short"   "jz__short"
+           mov_rax_rdi_rsi_rdx
+             u_v_x_y_z_a_b_c
+  asm        stack_frame_ptr       asm
+ movs        code_segment_cs      movs
+  binary_s    "machine_code"    o_binar
+execstack_sh      """""      elf64header
+c0ffee"deadbeefca   fe  f00dbabe"decaf
+ """      ""null_pointer   ""!""
+            0000  "stack_overflow
+ mov_byte_ptr_[rax]  "heap_allocat
+ segmentation_fault            double_fault
+   "panic!"                      "halt!"
+     cli                           sti
