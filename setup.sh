@@ -5,32 +5,83 @@ set -e
 echo "Updating system..."
 sudo apt update
 
-echo "Installing Hyprland desktop environment..."
+echo "Installing build dependencies for Hyprland..."
 
 sudo apt install -y \
-hyprland \
-waybar \
-wofi \
-kitty \
-thunar \
-nm-applet \
-blueman \
-grim \
-slurp \
-wl-clipboard \
-swww \
-nwg-dock \
-fonts-font-awesome \
+build-essential \
+cmake \
+meson \
+ninja-build \
+git \
+pkg-config \
+libwayland-dev \
+libxkbcommon-dev \
+libpixman-1-dev \
+libinput-dev \
+libseat-dev \
+libdrm-dev \
+libgbm-dev \
+libegl-dev \
+libgles2-mesa-dev \
+libvulkan-dev \
+libdisplay-info-dev \
+libliftoff-dev \
+libpango1.0-dev \
+libcairo2-dev \
+libglib2.0-dev \
+libxcb-composite0-dev \
+libxcb-xfixes0-dev \
+libxcb-render0-dev \
+libxcb-shape0-dev \
+libxcb-xinput-dev \
+libxcb1-dev \
 pipewire \
 wireplumber \
 xwayland \
 xdg-desktop-portal \
-xdg-desktop-portal-hyprland \
-polkit-kde-agent-1 \
+network-manager-gnome \
+blueman \
+grim \
+slurp \
+wl-clipboard \
 brightnessctl \
-playerctl
+playerctl \
+thunar
 
-echo "Creating configuration directories..."
+echo "Cloning Hyprland source..."
+
+git clone --recursive https://github.com/hyprwm/Hyprland ~/Hyprland
+cd ~/Hyprland
+
+echo "Building Hyprland..."
+
+make all
+
+echo "Installing Hyprland..."
+
+sudo make install
+
+echo "Installing Hyprland ecosystem tools..."
+
+sudo apt install -y \
+waybar \
+wofi \
+kitty \
+fonts-font-awesome
+
+echo "Creating Wayland session..."
+
+sudo mkdir -p /usr/share/wayland-sessions
+
+sudo bash -c 'cat <<EOF > /usr/share/wayland-sessions/hyprland.desktop
+[Desktop Entry]
+Name=Hyprland
+Comment=Hyprland Wayland compositor
+Exec=Hyprland
+Type=Application
+EOF'
+
+echo "Creating config directories..."
 
 mkdir -p ~/.config/hypr
 mkdir -p ~/.config/waybar
@@ -115,15 +166,12 @@ exec-once = waybar
 exec-once = nm-applet
 exec-once = blueman-applet
 exec-once = swww init
-exec-once = nwg-dock
-exec-once = /usr/lib/polkit-kde-authentication-agent-1
 
 EOF
 
 echo "Creating Waybar config..."
 
 cat <<EOF > ~/.config/waybar/config
-
 {
 "layer": "top",
 "position": "top",
@@ -131,13 +179,11 @@ cat <<EOF > ~/.config/waybar/config
 "modules-center": ["clock"],
 "modules-right": ["network", "battery", "pulseaudio"]
 }
-
 EOF
 
 echo "Creating Waybar style..."
 
 cat <<EOF > ~/.config/waybar/style.css
-
 * {
   font-family: "Font Awesome 6 Free";
   font-size: 13px;
@@ -147,22 +193,18 @@ window#waybar {
 background: rgba(20,20,20,0.7);
 border-radius: 10px;
 }
-
 EOF
 
 echo "Creating Wofi config..."
 
 cat <<EOF > ~/.config/wofi/config
-
 show=drun
 prompt=Search
-
 EOF
 
-echo "Setup complete."
-
 echo ""
-echo "Log out and select Hyprland from your login manager."
+echo "Installation complete."
+echo "Log out and select 'Hyprland' from the login screen."
 echo ""
 echo "Keybinds:"
 echo "SUPER + ENTER = Terminal"
