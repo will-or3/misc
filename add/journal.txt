@@ -1,0 +1,1 @@
+indent -gnu -kr -i4 -nut -l80 gnu_style_add.c
