@@ -1,1 +1,3 @@
-indent -gnu -kr -i4 -nut -l80 gnu_style_add.c
+indent -gnu -kr -i4 -nut -l80 -noback gnu_style_add.c
+/bin/cp -rf ~/add ~/misc 
+cp add.c gnu_style_add.c
