@@ -21,7 +21,7 @@ qemu-system-x86_64 \
   -netdev user,id=net0,restrict=on,ipv6=off \
   -device virtio-net-pci,netdev=net0,mac="$mac_addr" \
   -vga qxl \
-  -spice port="$spice_port",disable-ticketing \
+  -spice port="$spice_port",disable-ticketing=on \
   -rtc base=localtime,clock=host \
   -no-shutdown \
   -display gtk,gl=on \
