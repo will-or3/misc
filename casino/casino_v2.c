@@ -182,27 +182,27 @@ void roulette(){
   if (key != 0){
     if (key == 1 && red == 1){
       player_money += bet_amount * 2;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (key == 2 && black == 1){
       player_money += bet_amount * 2;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (key == 5 && green == 1){
       player_money += bet_amount * 35;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 == 0 && key == 4){
       player_money += bet_amount * 2;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 != 0 && key == 3){
       player_money += bet_amount * 2;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else {
@@ -214,7 +214,7 @@ void roulette(){
   else if (user_bet_single != -1){
     if (user_bet_single == secret_num){
       player_money += bet_amount * 35;
-      printf("you won!!!");
+      printf("\nyou won!!!");
       printf("bank: %lld\n", player_money);
     }
     else {
