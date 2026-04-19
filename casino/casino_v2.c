@@ -43,6 +43,45 @@ int is_red(int n){
     return 0;
 }
 
+void read_line(char *buffer, size_t size){
+  if (fgets(buffer, size, stdin) != NULL){
+    size_t len = strlen(buffer);
+    if (len > 0 && buffer[len-1] == '\n'){
+      buffer[len - 1] = '\0';
+    }
+  }
+}
+
+int read_int(){
+  char buffer[100];
+  int num;
+
+  if (fgets(buffer, sizeof(buffer), stdin) == NULL){
+    return 0;
+  }
+  if (sscanf(buffer, "%lld", &num) != 1) {
+    return 0;
+  }
+  if (num < 1){
+    return 0;
+  }
+
+  size_t len = strlen(buffer); 
+  if (len > 0 && buffer[len-1] == '\n'){
+  buffer[len-1] = '\0';}
+  
+  return num;
+}
+
+uint32_t gen_random(){
+  uint32_t r;
+  if (getrandom(&r, sizeof(r), 0) != sizeof(r)){
+    perror("getrandom");
+    exit(1);
+  }
+  return r;
+}
+
 void roulette(){
   printf("\033c");
   printf("balance: %lld\n\n", player_money);
@@ -67,12 +106,7 @@ void roulette(){
   char user_bet[100];
   printf("enter bet\n");
   printf("\n>:");
-  fgets(user_bet, sizeof(user_bet), stdin);
-
-  size_t len = strlen(user_bet);
-  if (len > 0 && user_bet[len - 1] == '\n') {
-      user_bet[len - 1] = '\0';
-  }
+  read_line(user_bet, sizeof(user_bet));
 
   int key = 0;
   int user_bet_single = -1;
@@ -117,15 +151,7 @@ void roulette(){
   else {goto enter;}
 
   // game logic starts here
-  // gen random num
-  uint32_t r;
-
-    // get 4 rand bytes
-    if (getrandom(&r, sizeof(r), 0) != sizeof(r)) {
-        perror("getrandom");
-        exit(1);
-    }
-    int secret_num = r % 37;
+  int secret_num = gen_random() % 37;
 
     const char *frames[] = {
         "Spinning   ",
@@ -211,6 +237,39 @@ void horse_races(){
     int tracklength = 24;
     int finish_line = tracklength - 1;
     int won = 0;
+
+    //print starting track
+    printf("\033c");
+    for (int i=1; i <= number_of_horses; i++){
+        if (horses[i] >= finish_line){
+                won = 1;
+                winner = i;
+            } 
+        printf("#%d:", i);
+        for (int j=0; j<tracklength; j++) {
+            if (j == finish_line){
+                printf("|");
+            }
+            else if (horses[i] == j){
+                printf("X");
+            }
+            else {printf("-");}
+        }
+        printf("\n");
+    }
+    
+    printf("\nbank: %lld\n", player_money);
+    printf("\nplace youre bets below people!!!\n");
+    long long bet_amount = 0;
+    while (bet_amount == 0) {
+    printf("\n>:");
+    bet_amount = get_bet();}
+
+    printf("\nwhich horse now\v");
+    printf("\n>:");
+    int horse_player_chose; 
+    horse_player_chose = read_int();
+
     while (won == 0) {
     for (int i=1; i <= number_of_horses; i++){
         if (horses[i] >= finish_line){
@@ -234,11 +293,8 @@ void horse_races(){
 
     uint32_t r;
 
-    // get 4 rand bytes
-    if (getrandom(&r, sizeof(r), 0) != sizeof(r)) {
-        perror("getrandom");
-    }
-    int secret_num = (r % number_of_horses) + 1;
+    int secret_num = (gen_random() % number_of_horses) + 1;
+
     horses[secret_num] += 1;
 
     if (horses[secret_num] > finish_line){
@@ -248,23 +304,42 @@ void horse_races(){
     
     printf("\n");
     printf("horse #%d won\n", winner);
+    printf("\n");
+    
+    if (winner == horse_player_chose){
+      player_money += bet_amount * 6;
+      printf("you won!!!\n");
+      printf("bank: %lld\n", player_money);
+    } 
+    else {
+      player_money = player_money - bet_amount;
+      printf("\n\nyou lost...\n");
+      printf(":(\n");
+      printf("bank: %lld\n", player_money);
+    }
 }
 int main(){
-  printf("WELCOME\n");
+  for (;;){
+  printf("\033c");
+  printf("bank: %lld\n\n", player_money);
+  printf("!!!WELCOME!!!\n");
   printf("to my casino\n\n");
   printf("rules:\n");
   printf("\t*have fun\n");
-  printf("\n\n");
+  printf("\n");
 
-  printf("(1) Roulette\n (2) Horse track\n\n")
+  printf("(1) Roulette\n(2) Horse track\n\n");
   ask:
   printf(">:");
-  int choice = 0;
-  
-  scanf("%d", &choice);
+  int choice; 
+  choice = read_int();
+
   if (choice ==  1){roulette();}
   else if (choice == 2){horse_races();}
   else {goto ask;}
+
+  usleep(3000000);
+  }
 
   return 0;
 }
