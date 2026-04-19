@@ -59,7 +59,7 @@ int read_int(){
   if (fgets(buffer, sizeof(buffer), stdin) == NULL){
     return 0;
   }
-  if (sscanf(buffer, "%lld", &num) != 1) {
+  if (sscanf(buffer, "%d", &num) != 1) {
     return 0;
   }
   if (num < 1){
@@ -180,12 +180,12 @@ void roulette(){
   
   if (key != 0){
     if (key == 1 && red == 1){
-      player_money += bet_amount * 2;
+      player_money += bet_amount;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (key == 2 && black == 1){
-      player_money += bet_amount * 2;
+      player_money += bet_amount;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
@@ -195,12 +195,12 @@ void roulette(){
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 == 0 && key == 4){
-      player_money += bet_amount * 2;
+      player_money += bet_amount;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 != 0 && key == 3){
-      player_money += bet_amount * 2;
+      player_money += bet_amount;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
@@ -265,10 +265,14 @@ void horse_races(){
     printf("\n>:");
     bet_amount = get_bet();}
 
+    ask_horse:
     printf("\nwhich horse now\v");
     printf("\n>:");
     int horse_player_chose; 
     horse_player_chose = read_int();
+    if (horse_player_chose < 1 || horse_player_chose > number_of_horses){
+      goto ask_horse;
+    }
 
     while (won == 0) {
     for (int i=1; i <= number_of_horses; i++){
