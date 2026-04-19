@@ -82,8 +82,20 @@ uint32_t gen_random(){
   return r;
 }
 
+void redraw_bg() {
+    printf("\033[2J");
+    printf("\033[H");
+    fflush(stdout);
+}
+
+void draw_header() {
+    printf("bank: %lld\n", player_money);
+    printf("\n");
+}
+
 void roulette(){
-  printf("\033c");
+  redraw_bg();
+  draw_header(); 
   printf("balance: %lld\n\n", player_money);
   printf("welcome to the roulette table\nplace your bet below\n\n");
 
@@ -96,7 +108,8 @@ void roulette(){
   player_money = player_money - bet_amount;
 
   enter:
-  printf("\033c");
+  redraw_bg();
+  draw_header(); 
   printf("Roulette Rules:\n");
   printf("\t you can bet on:\n");
   printf("\t* specific numbers 1-36 or 0 (if you want a single type [s])\n");
@@ -183,44 +196,44 @@ void roulette(){
     if (key == 1 && red == 1){
       player_money += bet_amount * 2;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else if (key == 2 && black == 1){
       player_money += bet_amount * 2;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else if (key == 5 && green == 1){
       player_money += bet_amount * 35;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else if (secret_num % 2 == 0 && key == 4){
       player_money += bet_amount * 2;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else if (secret_num % 2 != 0 && key == 3){
       player_money += bet_amount * 2;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else {
       printf("\n\nyou lost...\n");
       printf(":(\n");
-      printf("bank: %lld\n", player_money);
+      
     }
   }
   else if (user_bet_single != -1){
     if (user_bet_single == secret_num){
       player_money += bet_amount * 35;
       printf("\nyou won!!!");
-      printf("bank: %lld\n", player_money);
+      
     }
     else {
       printf("\n\nyou lost...\n");
       printf(":(\n");
-      printf("bank: %lld\n", player_money);
+      
     }
   }
 
@@ -238,7 +251,8 @@ void horse_races(){
     int won = 0;
 
     //print starting track
-    printf("\033c");
+    redraw_bg();
+    draw_header(); 
     for (int i=1; i <= number_of_horses; i++){
         if (horses[i] >= finish_line){
                 won = 1;
@@ -257,7 +271,6 @@ void horse_races(){
         printf("\n");
     }
     
-    printf("\nbank: %lld\n", player_money);
     printf("\nplace youre bets below people!!!\n");
     long long bet_amount = 0;
     while (bet_amount == 0) {
@@ -293,7 +306,8 @@ void horse_races(){
         printf("\n");
     }
     usleep(250000);
-    if (won == 0){printf("\033c");}
+    if (won == 0){redraw_bg();
+    draw_header(); }
 
     uint32_t r;
 
@@ -313,18 +327,18 @@ void horse_races(){
     if (winner == horse_player_chose){
       player_money += bet_amount * 5;
       printf("you won!!!\n");
-      printf("bank: %lld\n", player_money);
+      
     } 
     else {
       printf("\n\nyou lost...\n");
       printf(":(\n");
-      printf("bank: %lld\n", player_money);
+      
     }
 }
 int main(){
   while (player_money > 0){
-  printf("\033c");
-  printf("bank: %lld\n\n", player_money);
+  redraw_bg();
+  draw_header(); 
   printf("!!!WELCOME!!!\n");
   printf("to my casino\n\n");
   printf("rules:\n");
@@ -343,7 +357,8 @@ int main(){
 
   usleep(3000000);
   }
-  printf("\033c");
+  redraw_bg();
+  draw_header(); 
   printf("get out bum\n");
 
   return 0;
