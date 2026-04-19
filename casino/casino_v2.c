@@ -93,6 +93,7 @@ void roulette(){
     printf(">:");
     bet_amount = get_bet();
   }
+  player_money = player_money - bet_amount;
 
   enter:
   printf("\033c");
@@ -180,12 +181,12 @@ void roulette(){
   
   if (key != 0){
     if (key == 1 && red == 1){
-      player_money += bet_amount;
+      player_money += bet_amount * 2;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (key == 2 && black == 1){
-      player_money += bet_amount;
+      player_money += bet_amount * 2;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
@@ -195,17 +196,16 @@ void roulette(){
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 == 0 && key == 4){
-      player_money += bet_amount;
+      player_money += bet_amount * 2;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
     else if (secret_num % 2 != 0 && key == 3){
-      player_money += bet_amount;
+      player_money += bet_amount * 2;
       printf("you won!!!");
       printf("bank: %lld\n", player_money);
     }
     else {
-      player_money = player_money - bet_amount;
       printf("\n\nyou lost...\n");
       printf(":(\n");
       printf("bank: %lld\n", player_money);
@@ -218,7 +218,6 @@ void roulette(){
       printf("bank: %lld\n", player_money);
     }
     else {
-      player_money = player_money - bet_amount;
       printf("\n\nyou lost...\n");
       printf(":(\n");
       printf("bank: %lld\n", player_money);
@@ -264,6 +263,7 @@ void horse_races(){
     while (bet_amount == 0) {
     printf("\n>:");
     bet_amount = get_bet();}
+    player_money = player_money - bet_amount;
 
     ask_horse:
     printf("\nwhich horse now\v");
@@ -316,7 +316,6 @@ void horse_races(){
       printf("bank: %lld\n", player_money);
     } 
     else {
-      player_money = player_money - bet_amount;
       printf("\n\nyou lost...\n");
       printf(":(\n");
       printf("bank: %lld\n", player_money);
