@@ -322,7 +322,7 @@ void horse_races(){
     }
 }
 int main(){
-  for (;;){
+  while (player_money > 0){
   printf("\033c");
   printf("bank: %lld\n\n", player_money);
   printf("!!!WELCOME!!!\n");
@@ -343,6 +343,8 @@ int main(){
 
   usleep(3000000);
   }
+  printf("\033c");
+  printf("get out bum\n")
 
   return 0;
 }
