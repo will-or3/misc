@@ -3,6 +3,7 @@
 #include <sys/random.h>
 #include <string.h>
 #include <stdint.h>
+#include <unistd.h>
 
 long long player_money = 1000;
 
@@ -58,14 +59,14 @@ void roulette(){
   printf("\033c");
   printf("Roulette Rules:\n");
   printf("\t you can bet on:\n");
-  printf("\t\tspecific numbers 1-36 or 0 (if you want a single type [s])\n");
-  printf("\t\tred of black\n");
-  printf("\t\todd or even\n");
+  printf("\t* specific numbers 1-36 or 0 (if you want a single type [s])\n");
+  printf("\t* (r)ed of (b)lack\n");
+  printf("\t* (o)dd or (e)ven\n");
   printf("\tthats it.\n\n");
 
   char user_bet[100];
   printf("enter bet\n");
-  printf(">:");
+  printf("\n>:");
   fgets(user_bet, sizeof(user_bet), stdin);
 
   size_t len = strlen(user_bet);
@@ -125,6 +126,23 @@ void roulette(){
         exit(1);
     }
     int secret_num = r % 37;
+
+    const char *frames[] = {
+        "Spinning   ",
+        "Spinning.  ",
+        "Spinning.. ",
+        "Spinning..."
+    };
+
+    int y = 0;
+    
+    for(int x=0; x<10; x++) {
+        printf("\r%s", frames[y]);
+        fflush(stdout);
+
+        usleep(250000);
+        y = (y + 1) % 4;
+    }
     
     int green = 0;
     int red = 0;
