@@ -344,7 +344,7 @@ int main(){
   usleep(3000000);
   }
   printf("\033c");
-  printf("get out bum\n")
+  printf("get out bum\n");
 
   return 0;
 }
