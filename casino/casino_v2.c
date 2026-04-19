@@ -311,7 +311,7 @@ void horse_races(){
     printf("\n");
     
     if (winner == horse_player_chose){
-      player_money += bet_amount * 6;
+      player_money += bet_amount * 5;
       printf("you won!!!\n");
       printf("bank: %lld\n", player_money);
     } 
