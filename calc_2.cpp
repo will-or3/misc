@@ -154,6 +154,8 @@ expr* parse_factor() {
   exit(1);
 }
 
+
+// 2^3^2 == 2^9; you have to move it to the right
 expr* parse_power(){
   expr* left = parse_factor();
 
