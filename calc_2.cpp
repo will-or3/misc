@@ -277,6 +277,7 @@ int main(int argc, char* argv[]){
   expr* ast  = parse_expression();
   double x = eval_tree(ast);
   
+  std::cout << "\n";
   print_calc(x);
   
   return 0;  
