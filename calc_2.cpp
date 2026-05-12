@@ -4,8 +4,11 @@
 #include <algorithm>
 #include <cctype>
 #include <vector>
+#include <cmath>
+#include <iomanip>
+#include <fstream>
 
-// 2nd version, add AST & ex^ponent
+// 2nd version, add AST & ex^ponent, include file input
 
 std::string rm_whitespace(std::string s) {
   s.erase(
@@ -27,6 +30,7 @@ enum token_type {
   MINUS,
   ASTERISK,
   DIV,
+  EXPONENT,
   LEFT_PAREN,
   RIGHT_PAREN,
   END
@@ -93,6 +97,7 @@ std::vector<token> tokenize(std::string input){
       case '/': t.type = DIV; break;
       case '(': t.type = LEFT_PAREN; break;
       case ')': t.type = RIGHT_PAREN; break;
+      case '^': t.type = EXPONENT; break;
 
       default:
       std::cout << "invalid char: " << c << "\n";
@@ -149,15 +154,29 @@ expr* parse_factor() {
   exit(1);
 }
 
-expr* parse_term(){
+expr* parse_power(){
   expr* left = parse_factor();
+
+  if (current().type == EXPONENT) {
+    advance();
+
+    expr* right = parse_power();
+
+    return new binary_expr(EXPONENT, left, right);
+  }
+
+  return left;
+}
+
+expr* parse_term(){
+  expr* left = parse_power();
 
   while (current().type == ASTERISK ||
           current().type == DIV){
     token_type op = current().type;
     advance();
 
-    expr* right = parse_factor();
+    expr* right = parse_power();
 
     left = new binary_expr(op, left, right);
   }
@@ -180,14 +199,14 @@ expr* parse_expression(){
   return left;
 }
 
-int eval_tree(expr* expr){
+double eval_tree(expr* expr){
   if (auto num = dynamic_cast<num_expr*>(expr)){
       return num->value;
   }
 
   if (auto bin = dynamic_cast<binary_expr*>(expr)) {
-    int left = eval_tree(bin->left);
-    int right = eval_tree(bin->right);
+    double left = eval_tree(bin->left);
+    double right = eval_tree(bin->right);
 
     switch (bin->op){
       case PLUS:
@@ -199,6 +218,8 @@ int eval_tree(expr* expr){
       case DIV:
         if (right == 0) {std::cout << "division by 0 err :(\n"; exit(1);}
         else {return left / right;}
+      case EXPONENT:
+        return std::pow(left, right);
       
       default:
         std::cout << "operator syntax err\n";
@@ -208,13 +229,45 @@ int eval_tree(expr* expr){
   std::cout << "if theres an err all the way down here im sad :(\n";
   exit(1);
 }
-int main(){
+
+void print_calc(double x){
+  const double eps = 1e-10;
+
+  double intpart;
+  double frac = std::modf(x, &intpart);
+
+  if (std::abs(frac) < eps) {
+    std::cout << (long long)intpart << "\n";
+  } else {
+    std::cout << std::fixed << std::setprecision(10);
+    std::cout << x << "\n";
+  }
+}
+
+int main(int argc, char* argv[]){
   std::string input;
 
   std::cout << "baby's f̶i̶r̶s̶t̶ '2nd' c++ calculator\n";
-  std::cout << "\t>: ";
   
-  std::getline(std::cin, input);
+  if (argc > 1) {
+    std::ifstream file(argv[1]);
+
+    if (!file) {
+      std::cout << "could not open file : " << argv[i] << "\n";
+      return 1;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+      input += line;
+    }
+
+    file.close();
+    } 
+    else { 
+      std::cout << "  >: ";
+      std::getline(std::cin, input);
+    }
 
   input = rm_whitespace(input);
 
@@ -222,8 +275,9 @@ int main(){
 
   // ast = advanced syntax tree btw, if you did know btw, btw
   expr* ast  = parse_expression();
-  int x = eval_tree(ast);
-  std::cout << x << "\n";
+  double x = eval_tree(ast);
+  
+  print_calc(x);
   
   return 0;  
 }
