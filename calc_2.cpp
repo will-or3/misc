@@ -199,6 +199,17 @@ expr* parse_expression(){
   return left;
 }
 
+void free_ast(expr* node){
+  if (!node) return;
+
+  if (auto bin = dynamic_cast<binary_expr*>(node)) {
+    free_ast(bin->left);
+    free_ast(bin->right);
+  }
+
+  delete node;
+}
+
 double eval_tree(expr* expr){
   if (auto num = dynamic_cast<num_expr*>(expr)){
       return num->value;
@@ -276,6 +287,7 @@ int main(int argc, char* argv[]){
   // ast = advanced syntax tree btw, if you did know btw, btw
   expr* ast  = parse_expression();
   double x = eval_tree(ast);
+  free_ast(ast);
   
   std::cout << "\n";
   print_calc(x);
