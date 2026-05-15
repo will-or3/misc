@@ -13,6 +13,7 @@
 //  arrays, functions, preprocessor, data analysis, stdio/in
 //  add ; as statement delimiter, add comments, add if/else/for/while
 //  add nested scope (main)
+//  remove globals, 
 
 std::string rm_whitespace(std::string s) {
   s.erase(
