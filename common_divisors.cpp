@@ -59,6 +59,12 @@ int main() {
     std::unordered_map<int, int> exponents = get_exponents(factors);
 
     std::cout << 
+    "total divisors: "
+    <<
+    get_total_divisors(exponents)
+    <<
+    "\ntotal perfect square divisors: "
+    <<
     get_perf_sqr_divisors(exponents)
     << std::endl;
 
