@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdint>
 
+// 2^(p-1) * (2^p - 1) 
+
 bool is_prime(uint64_t n){
     if (n<2) return false;
 
