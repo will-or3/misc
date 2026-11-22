@@ -6,6 +6,8 @@
 bool is_prime(uint64_t n){
     if (n<2) return false;
 
+    // if a number has a greater divisor than it's square root
+    // it must also have a divisor smaller than it's square root 
     for (uint64_t i = 2; i*i <= n; i++){
         if (n % i == 0)
             return false;
@@ -30,6 +32,7 @@ uint64_t nth_perfect_number(int n){
         if (is_prime(mersenne)) {
             count++;
 
+            // 1ULL << p = 2^p
             if (count == n) {
                 return (1ULL << (p - 1)) * mersenne;
             }
